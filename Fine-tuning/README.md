@@ -12,11 +12,11 @@ The environment and datasets are same as *LREBench*. All datasets need to be pla
 - `--pretrain_path`: PLM, defaulting to *roberta-large*
 
 ## Balancing
-- Re-sampling datasets refers to [README]().
+- Re-sampling datasets refers to [README](https://github.com/zjunlp/LREBench/tree/main).
 - Re-weighting Loss: `--use_loss`
 
 ## Data Augmentation
-- DA refers to [README]().
+- DA refers to [README](https://github.com/zjunlp/LREBench/tree/main).
 
 ## Self-training
 - Assigning pseudo labels: `--labeling True`
