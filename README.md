@@ -2,8 +2,6 @@
 
 Code and datasets for the paper '*Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study*'.
 
-<br>
-
 ## Contents
 
 - [LREBench](#lrebench)
@@ -24,7 +22,6 @@ Code and datasets for the paper '*Towards Realistic Low-resource Relation Extrac
   - [Self-training for Semi-supervised learning](#self-training-for-semi-supervised-learning)
   - [Standard Fine-tuning](#standard-fine-tuning)
 
-<br>
 
 ## Environment
 
@@ -36,7 +33,6 @@ To install requirements:
 >> pip install -r requirements.txt
 ```
 
-<br>
 
 ## Datasets
 
@@ -55,7 +51,6 @@ All processed full datasets can be [download](https://drive.google.com/drive/fol
 The expected files of one dataset contains **rel2id.json**, **train.json** and **test.json**.
 And we also provide the sampling code and to convert them into 8-shot ([sample_8shot.py](sample_8shot.py)) and 10% ([sample_10.py](sample_10.py)) datasets. For example,
 
-<br>
 
 ## Normal Prompt-based Tuning
 
@@ -105,7 +100,6 @@ Schema Prompt: `--use_template_words 0 --use_schema_prompt True`
 
 PTR: refer to [PTR](https://github.com/thunlp/PTR)
 
-<br>
 
 ## Balancing
 
@@ -141,7 +135,6 @@ Simply add the *useloss* parameter to script for choosing various re-weighting l
 For exampe: `--useloss MultiFocalLoss`.
 (chocies: MultiDSCLoss, MultiFocalLoss, GHMC_Loss, LDAMLoss)
 
-<br>
 
 ## Data Augmentation
 
@@ -223,7 +216,6 @@ Following the instructions [nlpaug](https://github.com/makcedward/nlpaug)
   ```shell
   >> python augmented.py -i dataset/ChemProt/aug/merge_1.json -o dataset/ChemProt/aug
   ```
-<br>
 
 ## Self-training for Semi-supervised learning
 
