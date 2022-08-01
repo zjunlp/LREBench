@@ -1,5 +1,7 @@
 # LREBench
 
+A low-resource relation extraction benchmark.
+
 ## Contents
 
 - [LREBench](#lrebench)
