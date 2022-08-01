@@ -1,7 +1,5 @@
 # LREBench
 
-Code and datasets for the paper '*Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study*'.
-
 ## Contents
 
 - [LREBench](#lrebench)
