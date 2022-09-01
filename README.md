@@ -1,4 +1,4 @@
-# A low-resource relation extraction benchmark.
+# LREBench: A low-resource relation extraction benchmark.
 
 
 ## Contents
