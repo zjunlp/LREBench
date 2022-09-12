@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES 0
+export CUDA_VISIBLE_DEVICES=0
 python main.py \
     --max_epochs 10 \
     --num_workers 8 \

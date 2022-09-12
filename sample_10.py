@@ -4,7 +4,7 @@ import argparse
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--input_file", "-i", type=str, required=True,
+parser.add_argument("--input_dir", "-i", type=str, required=True,
                         help="The path of the training file.")
 parser.add_argument('--output_dir', '-o', type=str, required=True,
                         help="The directory of the sampled files.")
@@ -12,7 +12,7 @@ args = parser.parse_args()
 
 
 seeds = [1, 2, 3, 4, 5]
-with open(args.input_file,'r') as f:
+with open(os.path.join(args.input_dir, "train.json"),'r') as f:
     lines = f.readlines()
 
 dataset = []

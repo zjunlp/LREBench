@@ -323,8 +323,8 @@ class BertLitModel(BaseLitModel):
                 logging.info('Micro F1 of Many-level Relations: {}'.format(result['many_mif1']))
                 logging.info('Macro F1 of Many-level Relations: {}'.format(result['many_maf1']))
             logging.info('Classification Report: {}'.format(result['report']))
-            f1 = result['micro_f1']
-            self.log("Test/f1", f1)
+            # f1 = result['micro_f1']
+            # self.log("Test/f1", f1)
         
 
 

@@ -9,12 +9,16 @@ import nlpaug.augmenter.sentence as nas
 import nlpaug.flow as nafc
 from nlpaug.util import Action
 
+from nlpcda import Similarword
+
 
 def read_dataset(fname):
     dataset = []
     with open(fname, 'r') as f:
         for line in tqdm(f.readlines(), desc='reading dataset'):
-            dataset.append(json.loads(line))
+            line = line.rstrip()
+            if len(line) > 0:
+                dataset.append(json.loads(line))
     return dataset
 
 def merge(sent_dict):
@@ -34,58 +38,89 @@ def merge(sent_dict):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file', '-i', type=str, required=True,
-                        help='Input file containing dataset')
+                        help='the training set file')
     parser.add_argument("--output_dir", "-o", type=str, required=True,
                         help="The directory of the sampled files.")
-    parser.add_argument('--DAmethod', '-d', type=str, required=True,
-                        choices=["word2vec","TF-IDF","word_embedding_bert","word_embedding_distilbert","word_embedding_roberta","random_swap","synonym"],
-                        help='Data augmentation method')
-    parser.add_argument("--model_name", "-mn", type=str, default="roberta-large",
-                        help="model from huggingface")
-    # parser.add_argument('--model_dir','-m', type=str, required=True,
-    #                     help="the path of pretrained models used in DA methods")
+    parser.add_argument("--language", "-lan", type=str, required=True, choices=["en","cn"],
+                        help="DA for English or Chinese")
     parser.add_argument('--locations', '-l', nargs='+',
                         choices=['sent1', 'sent2', 'sent3', 'ent1', 'ent2'],
                         default=['sent1', 'sent2', 'sent3', 'ent1', 'ent2'],
                         help='List of positions that you want to manipulate')
-    args = parser.parse_args()
-    os.makedirs(args.output_dir,exist_ok=True)
     
-    DAmethods = {
-        "TF-IDF": '''naw.TfIdfAug(
-                    model_path=args.model_dir,
-                    action="substitute"
-                    )''',
-        "word_embedding_bert": '''naw.ContextualWordEmbsAug(
-                            model_path=args.model_name, 
-                            action="substitute",device='cuda')''',
-        "word_embedding_roberta": '''naw.ContextualWordEmbsAug(
-                            model_path="roberta-base",
-                            action="substitute",device='cuda')''',
-        "synonym": '''naw.SynonymAug(aug_src='wordnet')'''
-    }
+    # DA for English
+    parser.add_argument('--DAmethod', '-d', type=str, default="word_embedding_roberta",
+                        choices=["word2vec","TF-IDF","word_embedding_bert","word_embedding_roberta","random_swap","synonym"],
+                        help='Data augmentation method')
+    parser.add_argument('--model_dir','-m', type=str,
+                        help="the path of pretrained models used in DA methods",
+                        default="./model")
+    parser.add_argument("--model_name", "-mn", type=str, default="roberta-large",
+                        help="model from huggingface")
+
+    # DA for Chinese
+    parser.add_argument("--create_num", "-cn", type=int, default=1,
+                        help="The number of samples augmented from one instance.")
+    parser.add_argument("--change_rate", "-cr", type=float, default=0.5,
+                        help="the changing rate of text")
+
+    args = parser.parse_args()
+    os.makedirs(args.output_dir, exist_ok=True)
     origin_data = read_dataset(args.input_file)
-    DA_data = []
-    replaced_samples = []
-    perturb_func = eval(DAmethods[args.DAmethod])
-    for i in range(1,6):
+    is_token = True
+    if 'text' in origin_data[0]:
+        is_token = False
+    if args.language=="en":
+        # DA for English
+        DAmethods = {
+            "word2vec": '''naw.WordEmbsAug(
+                        model_type='word2vec', 
+                        model_path=os.path.join(args.model_dir,"GoogleNews-vectors-negative300.bin"),
+                        action="substitute")''',
+            "TF-IDF": '''naw.TfIdfAug(
+                        model_path=args.model_dir,
+                        action="substitute"
+                        )''',
+            "word_embedding_bert": '''naw.ContextualWordEmbsAug(
+                                model_path=args.model_name, 
+                                action="substitute",device='cuda')''',
+            "word_embedding_roberta": '''naw.ContextualWordEmbsAug(
+                                model_path="roberta-base",
+                                action="substitute",device='cuda')''',
+            "synonym": '''naw.SynonymAug(aug_src='wordnet')''',
+            "random_swap": '''naw.RandomWordAug(action="swap")''',
+            "synonym": '''naw.SynonymAug(aug_src='wordnet')'''
+        }
+        DA_data = []
+        replaced_samples = []
+        perturb_func = eval(DAmethods[args.DAmethod])
         for example in tqdm(origin_data,desc="Augment the dataset"):
-            tokens = example['token']
+            if is_token:
+                tokens = example['token']
+            else:
+                tokens = example['text']
             relation = example['relation']
             head_pos, tail_pos = example['h']['pos'], example['t']['pos']
             rev = head_pos[0] > tail_pos[0]
-            # Split the tokens
-            sent1, ent1, sent2, ent2, sent3 = (' '.join(tokens[:head_pos[0]]),
-                                            ' '.join(
-                                                tokens[head_pos[0]:head_pos[1]]),
-                                            ' '.join(
-                                                tokens[head_pos[1]:tail_pos[0]]),
-                                            ' '.join(
-                                                tokens[tail_pos[0]:tail_pos[1]]),
-                                            ' '.join(tokens[tail_pos[1]:]))
             if rev:
-                # Reversed order: tail appears before head
-                ent1, ent2 = ent2, ent1
+                head_pos = example['t']['pos']
+                tail_pos = example['h']['pos']
+            # Split the tokens
+            if is_token:
+                sent1, ent1, sent2, ent2, sent3 = (' '.join(tokens[:head_pos[0]]),
+                                                ' '.join(
+                                                    tokens[head_pos[0]:head_pos[1]]),
+                                                ' '.join(
+                                                    tokens[head_pos[1]:tail_pos[0]]),
+                                                ' '.join(
+                                                    tokens[tail_pos[0]:tail_pos[1]]),
+                                                ' '.join(tokens[tail_pos[1]:]))
+            else:
+                sent1, ent1, sent2, ent2, sent3 = (tokens[:head_pos[0]],
+                                                    tokens[head_pos[0]:head_pos[1]],
+                                                    tokens[head_pos[1]:tail_pos[0]],
+                                                    tokens[tail_pos[0]:tail_pos[1]],
+                                                    tokens[tail_pos[1]:])
             # Pack all parts into a dict and modify by names
             sent_dict = {'sent1': [sent1], 'ent1': [ent1], 'sent2': [sent2],
                         'ent2': [ent2], 'sent3': [sent3]}
@@ -107,25 +142,95 @@ if __name__ == "__main__":
                     ret = [ret]
                 sent_dict_copy[loc] = ret
 
-                # Merge all parts of perturbed sentences and filter out original sentence
-                for merged_sent in filter(lambda perturbed_tokens: perturbed_tokens != tokens,
-                                        merge(sent_dict_copy)):
+            # Merge all parts of perturbed sentences and filter out original sentence
+            for merged_sent in filter(lambda perturbed_tokens: perturbed_tokens != tokens,
+                                    merge(sent_dict_copy)):
+                if is_token:
                     tokens = ' '.join(merged_sent).split(' ')
                     sent1, ent1, sent2, ent2, sent3 = merged_sent
                     head_pos = [len(sent1.split(' '))]
                     head_pos.append(head_pos[0] + len(ent1.split(' ')))
                     tail_pos = [head_pos[1] + len(sent2.split(' '))]
                     tail_pos.append(tail_pos[0] + len(ent2.split(' ')))
-                    if rev:
-                        head_pos, tail_pos = tail_pos, head_pos
-                    replaced_samples.append({
-                        'token': tokens,
-                        'h': {'name':ent1, 'pos': head_pos},
-                        't': {'name':ent2, 'pos': tail_pos},
-                        'relation': relation,
-                        'aug': args.DAmethod
-                    })
-        with open(os.path.join(args.output_dir, "aug_"+str(i)+".json"),'w') as f:
-            for line in replaced_samples:
-                f.writelines(json.dumps(line))
-                f.write('\n')
+                else:
+                    tokens = merged_sent
+                    sent1, ent1, sent2, ent2, sent3 = merged_sent
+                    head_pos = [len(sent1)]
+                    head_pos.append(head_pos[0] + len(ent1))
+                    tail_pos = [head_pos[1] + len(sent2)]
+                    tail_pos.append(tail_pos[0] + len(ent2))
+
+                
+                if rev:
+                    head_pos, tail_pos = tail_pos, head_pos
+                replaced_samples.append({
+                    'text': tokens,
+                    'h': {'name':ent1, 'pos': head_pos},
+                    't': {'name':ent2, 'pos': tail_pos},
+                    'relation': relation,
+                    'aug': args.DAmethod
+                })
+    else:
+        # 中文DA
+        DA_data = []
+        replaced_samples = []
+        perturb_func = Similarword(create_num=1, change_rate=0.3)
+        for example in tqdm(origin_data,desc="Augment the dataset"):
+            tokens = example['text']
+            relation = example['relation']
+            head_pos, tail_pos = example['h']['pos'], example['t']['pos']
+            rev = head_pos[0] > tail_pos[0]
+            if rev:
+                head_pos = example['t']['pos']
+                tail_pos = example['h']['pos']
+            # Split the tokens
+            sent1, ent1, sent2, ent2, sent3 = (tokens[:head_pos[0]],
+                                                tokens[head_pos[0]:head_pos[1]],
+                                                tokens[head_pos[1]:tail_pos[0]],
+                                                tokens[tail_pos[0]:tail_pos[1]],
+                                                tokens[tail_pos[1]:])
+
+            # Pack all parts into a dict and modify by names
+            sent_dict = {'sent1': [sent1], 'ent1': [ent1], 'sent2': [sent2],
+                        'ent2': [ent2], 'sent3': [sent3]}
+            sent_dict_copy = sent_dict.copy()
+            # Diverge
+            for loc in args.locations:
+                origin = sent_dict[loc][0]
+                if not origin:
+                    # No tokens given
+                    continue
+                ret = perturb_func.replace(origin)
+
+                # Process result
+                if not ret:
+                    # Returned nothing
+                    ret = [sent_dict[loc][0]]
+                if isinstance(ret, str):
+                    # Wrap single sentence
+                    ret = [ret]
+                sent_dict_copy[loc] = ret
+
+            # Merge all parts of perturbed sentences and filter out original sentence
+            for merged_sent in filter(lambda perturbed_tokens: perturbed_tokens != tokens,
+                                    merge(sent_dict_copy)):
+                tokens = merged_sent
+                sent1, ent1, sent2, ent2, sent3 = merged_sent
+                head_pos = [len(sent1)]
+                head_pos.append(head_pos[0] + len(ent1))
+                tail_pos = [head_pos[1] + len(sent2)]
+                tail_pos.append(tail_pos[0] + len(ent2))
+                if rev:
+                    head_pos, tail_pos = tail_pos, head_pos
+                replaced_samples.append({
+                    'token': tokens,
+                    'h': {'name':ent1, 'pos': head_pos},
+                    't': {'name':ent2, 'pos': tail_pos},
+                    'relation': relation,
+                    'aug': "nlpcda_similarword"
+                })
+    
+    with open(os.path.join(args.output_dir, "aug.json"),'w') as f:
+        for line in replaced_samples:
+            f.writelines(json.dumps(line, ensure_ascii=False))
+            f.write('\n')

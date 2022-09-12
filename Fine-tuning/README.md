@@ -2,7 +2,7 @@
 Thanks a lot for [OpenNRE](https://github.com/thunlp/OpenNRE).
 
 ## Preparation
-The environment and datasets are same as *LREBench*. All datasets need to be placed in the [*benchmark*](benchmark) folder.
+All datasets need to be placed in the [*benchmark*](benchmark) folder.
 
 ## Running
 ```shell
