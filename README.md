@@ -176,8 +176,8 @@ Please follow the instructions from [nlpaug](https://github.com/makcedward/nlpau
 
 We provide many data augmentation methods
 
-- English (nlpaug): TF-IDF, contextual word embedding (BERT and RoBERTa), and WordNet' Synonym.
-- Chinese (nlpcda): Synonym
+- English (nlpaug): TF-IDF, contextual word embedding (BERT and RoBERTa), and WordNet' Synonym (-lan==en, -d).
+- Chinese (nlpcda): Synonym (-lan==cn)
 - All DA methods can be implemented on contexts, entities and both of them (--locations). 
 - Generate augmented data
   ```shell
