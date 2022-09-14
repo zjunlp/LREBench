@@ -19,5 +19,6 @@ All datasets need to be placed in the [*benchmark*](benchmark) folder.
 - DA refers to [README](https://github.com/zjunlp/LREBench/tree/main).
 
 ## Self-training
-- Assigning pseudo labels: `--labeling True`
-- Training the student model:  `--stutrain True`
+- Assign pseudo labels: `--labeling True`
+- Combine pseudo-labeled data and gold-labeled data by using [self-train_combine.py](https://github.com/zjunlp/LREBench/blob/main/self-train_combine.py)
+- Train the student model:  `--stutrain True`
