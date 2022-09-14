@@ -178,7 +178,7 @@ We provide many data augmentation methods
 
 - English (nlpaug): TF-IDF, contextual word embedding (BERT and RoBERTa), and WordNet' Synonym.
 - Chinese (nlpcda): Synonym
-- All DA methods can be implemented on contexts, entities and both of them. 
+- All DA methods can be implemented on contexts, entities and both of them (--locations). 
 - Generate augmented data
   ```shell
   >> python DA.py -h
