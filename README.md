@@ -166,11 +166,11 @@ For exampe: `--useloss MultiFocalLoss`.
 
 ### 1 Prepare the environment
 
-Following the instructions from [nlpaug](https://github.com/makcedward/nlpaug#installation) and [nlpcda](https://github.com/425776024/nlpcda) (Thanks a lot!).
-
 ```shell
 >> pip install nlpaug nlpcda
 ```
+
+Please follow the instructions from [nlpaug](https://github.com/makcedward/nlpaug#installation) and [nlpcda](https://github.com/425776024/nlpcda) for more information (Thanks a lot!).
 
 ### 2 Try different DA methods
 
