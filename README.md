@@ -81,7 +81,7 @@ We provide the sampling code for obtaining 8-shot ([sample_8shot.py](sample_8sho
     optional arguments:
       -h, --help            show this help message and exit
       --input_file INPUT_FILE, -i INPUT_FILE
-                            The path of the training file.
+                            The directory of the training file.
       --output_dir OUTPUT_DIR, -o OUTPUT_DIR
                             The directory of the sampled files.
 ```
