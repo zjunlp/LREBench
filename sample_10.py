@@ -5,7 +5,7 @@ import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--input_dir", "-i", type=str, required=True,
-                        help="The path of the training file.")
+                        help="The directory of the training file.")
 parser.add_argument('--output_dir', '-o', type=str, required=True,
                         help="The directory of the sampled files.")
 args = parser.parse_args()
