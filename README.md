@@ -246,7 +246,7 @@ We provide many data augmentation methods
 
 - Train a teacher model on a few labeled data (8-shot or 10%)
 - Place the unlabeled data **label.json** in the corresponding dataset folder.
-- Assigning pseudo labels using the trained teacher model: add `--labeling True` to the script and get the pseudo-labeled dataset **label2.json**.
+- Assigning pseudo labels using the trained teacher model: add `--labeling True` to the script and obtain the pseudo-labeled dataset **label2.json**.
 - Put the gold-labeled data and pseudo-labeled data together. For example:
   ```shell
   >> python self-train_combine.py -g dataset/semeval/10-1/train.json -p dataset/semeval/10-1/label2.json -la dataset/semeval/10la-1
