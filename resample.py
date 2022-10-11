@@ -42,12 +42,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     os.makedirs(args.output_dir,exist_ok=True)
-    dataset = CustomDataset(args.input_file,args.rel_file)
-    for i in range(1,6):
-        np.random.seed(i)
-        dataLoader = DataLoader(dataset, batch_size=1,sampler=ImbalancedDatasetSampler(dataset))
-        with open(os.path.join(args.output_dir, 'sa_'+str(i)+'.json'),'w') as f:
-            for data in dataLoader:
-                reldata = eval(data[0])
-                f.writelines(json.dumps(reldata,ensure_ascii=False))
-                f.write('\n')
+    dataset = CustomDataset(args.input_file, args.rel_file)
+    dataLoader = DataLoader(dataset, batch_size=1,sampler=ImbalancedDatasetSampler(dataset))
+    with open(os.path.join(args.output_dir, 'sa.json'),'w') as f:
+        for data in dataLoader:
+            reldata = eval(data[0])
+            f.writelines(json.dumps(reldata,ensure_ascii=False))
+            f.write('\n')
