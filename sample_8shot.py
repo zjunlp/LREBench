@@ -37,7 +37,7 @@ def main():
             else:
                 label_list[label].append(copy.deepcopy(line))
 
-        unlabeled = []
+#         unlabeled = []
         lessrel = []
         with open(os.path.join(args.output_dir, "train_" + str(k) + "_" + str(seed) + ".json"), "w") as f:
             for label in label_list:
@@ -45,14 +45,14 @@ def main():
                     for line in label_list[label][:k]:
                         f.writelines(json.dumps(line, ensure_ascii=False))
                         f.write('\n')
-                    unlabeled.extend(label_list[label][k:])
+#                     unlabeled.extend(label_list[label][k:])
                 else:
                     lessrel.append(label)
 
-        with open(os.path.join(args.output_dir, "unlabel_" + str(k) + "_" + str(seed) + ".json"), "w") as f:
-            for line in unlabeled:
-                f.writelines(json.dumps(line, ensure_ascii=False))
-                f.write('\n')
+#         with open(os.path.join(args.output_dir, "unlabel_" + str(k) + "_" + str(seed) + ".json"), "w") as f:
+#             for line in unlabeled:
+#                 f.writelines(json.dumps(line, ensure_ascii=False))
+#                 f.write('\n')
     
     if len(lessrel)!=0:
         test = get_labels(os.path.join(args.input_dir, "test.json"))
