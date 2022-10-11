@@ -27,5 +27,5 @@ for fname in tqdm(args.input_files,desc="Merge"):
 print('Reduced {} repeated samples'.format(reduced_samples))
 with open(args.output_file, 'w') as f:
     for line in all_samples:
-        f.writelines(json.dumps(line))
+        f.writelines(json.dumps(line, ensure_ascii=False))
         f.write('\n')
