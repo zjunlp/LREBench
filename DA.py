@@ -89,7 +89,6 @@ if __name__ == "__main__":
                                 action="substitute",device='cuda')''',
             "synonym": '''naw.SynonymAug(aug_src='wordnet')''',
             "random_swap": '''naw.RandomWordAug(action="swap")''',
-            "synonym": '''naw.SynonymAug(aug_src='wordnet')'''
         }
         DA_data = []
         replaced_samples = []
