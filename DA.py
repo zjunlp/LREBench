@@ -153,23 +153,32 @@ if __name__ == "__main__":
                     tail_pos = [head_pos[1] + len(sent2.split(' '))]
                     tail_pos.append(tail_pos[0] + len(ent2.split(' ')))
                 else:
-                    tokens = merged_sent
+                    tokens = ' '.join(merged_sent)
                     sent1, ent1, sent2, ent2, sent3 = merged_sent
-                    head_pos = [len(sent1)]
+                    head_pos = [len(sent1)+1]
                     head_pos.append(head_pos[0] + len(ent1))
-                    tail_pos = [head_pos[1] + len(sent2)]
+                    tail_pos = [head_pos[1] + len(sent2)+1+1]
                     tail_pos.append(tail_pos[0] + len(ent2))
 
                 
                 if rev:
                     head_pos, tail_pos = tail_pos, head_pos
-                replaced_samples.append({
-                    'text': tokens,
-                    'h': {'name':ent1, 'pos': head_pos},
-                    't': {'name':ent2, 'pos': tail_pos},
-                    'relation': relation,
-                    'aug': args.DAmethod
-                })
+                if is_token:
+                    replaced_samples.append({
+                        'token': tokens,
+                        'h': {'name':ent1, 'pos': head_pos},
+                        't': {'name':ent2, 'pos': tail_pos},
+                        'relation': relation,
+                        'aug': args.DAmethod
+                    })
+                else:
+                    replaced_samples.append({
+                        'text': tokens,
+                        'h': {'name':ent1, 'pos': head_pos},
+                        't': {'name':ent2, 'pos': tail_pos},
+                        'relation': relation,
+                        'aug': args.DAmethod
+                    })
     else:
         # 中文DA
         DA_data = []
@@ -214,16 +223,16 @@ if __name__ == "__main__":
             # Merge all parts of perturbed sentences and filter out original sentence
             for merged_sent in filter(lambda perturbed_tokens: perturbed_tokens != tokens,
                                     merge(sent_dict_copy)):
-                tokens = merged_sent
+                tokens = ' '.join(merged_sent)
                 sent1, ent1, sent2, ent2, sent3 = merged_sent
-                head_pos = [len(sent1)]
+                head_pos = [len(sent1)+1]
                 head_pos.append(head_pos[0] + len(ent1))
-                tail_pos = [head_pos[1] + len(sent2)]
+                tail_pos = [head_pos[1] + len(sent2)+1+1]
                 tail_pos.append(tail_pos[0] + len(ent2))
                 if rev:
                     head_pos, tail_pos = tail_pos, head_pos
                 replaced_samples.append({
-                    'token': tokens,
+                    'text': tokens,
                     'h': {'name':ent1, 'pos': head_pos},
                     't': {'name':ent2, 'pos': tail_pos},
                     'relation': relation,
