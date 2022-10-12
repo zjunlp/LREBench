@@ -88,7 +88,7 @@ if __name__ == "__main__":
                                 model_path="roberta-base",
                                 action="substitute",device='cuda')''',
             "synonym": '''naw.SynonymAug(aug_src='wordnet')''',
-            "random_swap": '''naw.RandomWordAug(action="swap")''',
+            "random_swap": '''naw.RandomWordAug(action="swap")'''
         }
         DA_data = []
         replaced_samples = []
