@@ -16,4 +16,7 @@ scikit-learn
 torchsampler
 pytest
 # nlpaug
+# requrests
+# sentencepiece
+# nltk
 # nlpcda
