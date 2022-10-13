@@ -46,7 +46,7 @@ We provide 8 benchmark datasets and prompts used in our experiments.
 - [DuIE2.0](https://www.luge.ai/#/luge/dataDetail?id=5)
 - [CMeIE](https:/tianchi.aliyun.com/dataset/dataDetail)
 
-All processed full-shot datasets can be [download](https://drive.google.com/drive/folders/1OXxMr4SXUhehJx1XmDdrhJAppfo_ZNUh?usp=sharing) and need to be placed in the [*dataset*](dataset) folder.
+All processed full-shot datasets can be [downloaded](https://drive.google.com/drive/folders/1OXxMr4SXUhehJx1XmDdrhJAppfo_ZNUh?usp=sharing) and need to be placed in the [*dataset*](dataset) folder.
 The expected files of one dataset contains **rel2id.json**, **train.json** and **test.json**.
 
 
