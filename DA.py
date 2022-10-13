@@ -222,7 +222,7 @@ if __name__ == "__main__":
             # Merge all parts of perturbed sentences and filter out original sentence
             for merged_sent in filter(lambda perturbed_tokens: perturbed_tokens != tokens,
                                     merge(sent_dict_copy)):
-                tokens = ' '.join(merged_sent)
+                tokens = ''.join(merged_sent)
                 sent1, ent1, sent2, ent2, sent3 = merged_sent
                 head_pos = [len(sent1)+1]
                 head_pos.append(head_pos[0] + len(ent1))
