@@ -37,14 +37,14 @@ To install requirements:
 
 We provide 8 benchmark datasets and prompts used in our experiments.
 
-- [SemEval](https://github.com/thunlp/PTR/tree/main/datasets/semeval)
-- [TACREV](https://github.com/thunlp/PTR/tree/main/datasets/tacrev)
+- [SemEval](https://github.com/zjunlp/KnowPrompt/tree/master/dataset/semeval)
+- [TACREV](https://github.com/zjunlp/KnowPrompt/tree/master/dataset/tacrev)
 - [Wiki80](https://github.com/thunlp/OpenNRE/blob/master/benchmark/download_wiki80.sh)
 - [SciERC](http://nlp.cs.washington.edu/sciIE/)
 - [ChemProt](https://github.com/ncbi-nlp/BLUE_Benchmark)
 - [DialogRE](https://dataset.org/dialogre/)
-- [DuIE2.0](https://github.com/qxiaomo1128/DuIE2.0-data)
-- [CMeIE]([dataset/CMeIE](https://tianchi.aliyun.com/dataset/dataDetail?dataId=95414))
+- [DuIE2.0](https://www.luge.ai/#/luge/dataDetail?id=5)
+- [CMeIE](https:/tianchi.aliyun.com/dataset/dataDetail)
 
 All processed full-shot datasets can be [download](https://drive.google.com/drive/folders/1OXxMr4SXUhehJx1XmDdrhJAppfo_ZNUh?usp=sharing) and need to be placed in the [*dataset*](dataset) folder.
 The expected files of one dataset contains **rel2id.json**, **train.json** and **test.json**.
