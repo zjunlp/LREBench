@@ -139,7 +139,7 @@ PTR: refer to [PTR](https://github.com/thunlp/PTR)
 ## Balancing
 
 <div align=center>
-<img src="figs/balance.png" alt="balance" width=80% height=80% />
+<img src="figs/balance.png" alt="balance" width=60% height=60% />
 </div>
 
 ### 1 Re-sampling
