@@ -2,7 +2,9 @@
 
 This repo is official implementation for the EMNLP2022 (Findings) paper *LREBench: [Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)*. This paper presents an empirical study to build relation extraction systems in low-resource settings. Based upon recent PLMs, three schemes are comprehensively investigated to evaluate the performance in low-resource settings: $(i)$ different types of prompt-based methods with few-shot labeled data;  $(ii)$ diverse balancing methods to address the long-tailed distribution issue; $(iii)$ data augmentation technologies and self-training to generate more labeled in-domain data.
 
-![intro](figs/intro.png)
+<div align="center>
+<img src="figs/intro.png" alt="intro" style="zoom:50%;" />
+</div>
 
 ## Contents
 
@@ -54,7 +56,9 @@ The expected files of one dataset contains **rel2id.json**, **train.json** and *
 
 ## Normal Prompt-based Tuning
 
-![prompt](figs/prompt.png)
+<div align="center>
+<img src="figs/prompt.png" alt="prompt" style="zoom:50%;" />
+</div>
 
 ### 1 Initialize Answer Words
 
@@ -131,7 +135,9 @@ PTR: refer to [PTR](https://github.com/thunlp/PTR)
 
 ## Balancing
 
-![balance](figs/balance.png)
+<div align="center>
+<img src="figs/balance.png" alt="balance" style="zoom:70%;" />
+</div>
 
 ### 1 Re-sampling
 
@@ -171,7 +177,9 @@ For exampe: `--useloss MultiFocalLoss`.
 
 ## Data Augmentation
 
-![DA](figs/DA.png)
+<div align="center>
+<img src="figs/DA.png" alt="DA" style="zoom:50%;" />
+</div>
 
 ### 1 Prepare the environment
 
@@ -253,7 +261,9 @@ We provide many data augmentation methods
 
 ## Self-training for Semi-supervised learning
 
-![st](figs/self-training.png)
+<div align="center>
+<img src="figs/self-training.png" alt="st" style="zoom:50%;" />
+</div>
 
 - Train a teacher model on a few labeled data (8-shot or 10%)
 - Place the unlabeled data **label.json** in the corresponding dataset folder.
@@ -268,4 +278,7 @@ We provide many data augmentation methods
 
 
 ## Standard Fine-tuning Baseline
+<div align="center>
+<img src="figs/fine-tuning.png" alt="ft" style="zoom:50%;" />
+</div> 
 [Fine-tuning](Fine-tuning/)
