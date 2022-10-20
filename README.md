@@ -54,7 +54,7 @@ The expected files of one dataset contains **rel2id.json**, **train.json** and *
 
 ## Normal Prompt-based Tuning
 
-![prompt](figs/different prompt.png)
+![prompt](figs/prompt.png)
 
 ### 1 Initialize Answer Words
 
@@ -171,6 +171,8 @@ For exampe: `--useloss MultiFocalLoss`.
 
 ## Data Augmentation
 
+![DA](figs/DA.png)
+
 ### 1 Prepare the environment
 
 ```shell
@@ -250,6 +252,8 @@ We provide many data augmentation methods
   ```
 
 ## Self-training for Semi-supervised learning
+
+![st](figs/self-training.png)
 
 - Train a teacher model on a few labeled data (8-shot or 10%)
 - Place the unlabeled data **label.json** in the corresponding dataset folder.
