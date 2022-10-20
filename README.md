@@ -3,7 +3,7 @@
 This repo is official implementation for the EMNLP2022 (Findings) paper *LREBench: [Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)*. This paper presents an empirical study to build relation extraction systems in low-resource settings. Based upon recent PLMs, three schemes are comprehensively investigated to evaluate the performance in low-resource settings: $(i)$ different types of prompt-based methods with few-shot labeled data;  $(ii)$ diverse balancing methods to address the long-tailed distribution issue; $(iii)$ data augmentation technologies and self-training to generate more labeled in-domain data.
 
 <div align=center>
-<img src="figs/intro.png" alt="intro" width=50% height=50% />
+<img src="figs/intro.png" alt="intro" width=70% height=70% />
 </div>
 
 
@@ -57,8 +57,8 @@ The expected files of one dataset contains **rel2id.json**, **train.json** and *
 
 ## Normal Prompt-based Tuning
 
-<div align="center>
-<img src="figs/prompt.png" alt="prompt" style="zoom:50%;" />
+<div align=center>
+<img src="figs/prompt.png" alt="prompt" width=70% height=70% />
 </div>
 
 ### 1 Initialize Answer Words
@@ -123,7 +123,9 @@ For example, train *KonwPrompt* on SemEval, CMeIE and ChemProt with the followin
 
 ### 4 Different prompts
 
-<img src="figs/prompts.png" alt="prompts" style="zoom:40%;" />
+<div align=center>
+<img src="figs/prompts.png" alt="prompts" width=70% height=70% />
+</div>
 
 Simply add parameters to the scripts.
 
@@ -136,8 +138,8 @@ PTR: refer to [PTR](https://github.com/thunlp/PTR)
 
 ## Balancing
 
-<div align="center>
-<img src="figs/balance.png" alt="balance" style="zoom:70%;" />
+<div align=center>
+<img src="figs/balance.png" alt="balance" width=80% height=80% />
 </div>
 
 ### 1 Re-sampling
@@ -178,8 +180,8 @@ For exampe: `--useloss MultiFocalLoss`.
 
 ## Data Augmentation
 
-<div align="center>
-<img src="figs/DA.png" alt="DA" style="zoom:50%;" />
+<div align=center>
+<img src="figs/DA.png" alt="DA" width=70% height=70% />
 </div>
 
 ### 1 Prepare the environment
@@ -262,8 +264,8 @@ We provide many data augmentation methods
 
 ## Self-training for Semi-supervised learning
 
-<div align="center>
-<img src="figs/self-training.png" alt="st" style="zoom:50%;" />
+<div align=center>
+<img src="figs/self-training.png" alt="st" width=70% height=70% />
 </div>
 
 - Train a teacher model on a few labeled data (8-shot or 10%)
@@ -279,7 +281,7 @@ We provide many data augmentation methods
 
 
 ## Standard Fine-tuning Baseline
-<div align="center>
-<img src="figs/fine-tuning.png" alt="ft" style="zoom:50%;" />
+<div align=center>
+<img src="figs/fine-tuning.png" alt="ft" width=70% height=70% />
 </div> 
 [Fine-tuning](Fine-tuning/)
