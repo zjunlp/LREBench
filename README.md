@@ -1,6 +1,8 @@
 # LREBench: A low-resource relation extraction benchmark.
 
-Official code for the EMNLP2022 (Findings) paper "[Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)". 
+This repo is official implementation for the EMNLP2022 (Findings) paper *LREBench: [Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)*. This paper presents an empirical study to build relation extraction systems in low-resource settings. Based upon recent PLMs, three schemes are comprehensively investigated to evaluate the performance in low-resource settings: $(i)$ different types of prompt-based methods with few-shot labeled data;  $(ii)$ diverse balancing methods to address the long-tailed distribution issue; $(iii)$ data augmentation technologies and self-training to generate more labeled in-domain data.
+
+![intro](figs/intor.png)
 
 ## Contents
 
@@ -51,6 +53,8 @@ The expected files of one dataset contains **rel2id.json**, **train.json** and *
 
 
 ## Normal Prompt-based Tuning
+
+![different_prompt](figs/different prompt.png)
 
 ### 1 Initialize Answer Words
 
@@ -126,6 +130,8 @@ PTR: refer to [PTR](https://github.com/thunlp/PTR)
 
 
 ## Balancing
+
+![balance](figs/balance.png)
 
 ### 1 Re-sampling
 
