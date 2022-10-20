@@ -284,4 +284,5 @@ We provide many data augmentation methods
 <div align=center>
 <img src="figs/fine-tuning.png" alt="ft" width=70% height=70% />
 </div> 
+
 [Fine-tuning](Fine-tuning/)
