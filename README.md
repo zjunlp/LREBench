@@ -1,6 +1,6 @@
 # LREBench: A low-resource relation extraction benchmark.
 
-Official code for the EMNLP2022 (Findings) paper "[Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study]()". 
+Official code for the EMNLP2022 (Findings) paper "[Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)". 
 
 ## Contents
 
