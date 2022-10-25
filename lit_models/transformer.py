@@ -275,10 +275,10 @@ class BertLitModel(BaseLitModel):
         logits = self.pvp(logits, input_ids)
         if self.args.labeling=="True":
             predictedlabel = np.argmax(logits.cpu(), axis=-1).numpy()
-            if batch_idx*16+16 <= len(self.unlabeleddataset):
-                unlabeled = self.unlabeleddataset[batch_idx*16:batch_idx*16+16]
+            if batch_idx * self.args.batch_size + self.args.batch_size <= len(self.unlabeleddataset):
+                unlabeled = self.unlabeleddataset[batch_idx * self.args.batch_size : batch_idx * self.args.batch_size + self.args.batch_size]
             else:
-                unlabeled = self.unlabeleddataset[batch_idx*16:]
+                unlabeled = self.unlabeleddataset[batch_idx * self.args.batch_size:]
             assert len(unlabeled)==len(predictedlabel)
             id2rel = {}
             for k,v in self.rel2id.items():
@@ -299,30 +299,30 @@ class BertLitModel(BaseLitModel):
         return {"test_logits": logits.detach().cpu().numpy(), "test_labels": labels.detach().cpu().numpy()}
 
     def test_epoch_end(self, outputs) -> None:
-        if self.args.labeling=="False":
-            logits = np.concatenate([o["test_logits"] for o in outputs])
-            labels = np.concatenate([o["test_labels"] for o in outputs])
-            result = self.eval_fn(logits, labels)
-            logging.info('Test set results:')
-            logging.info('Dataset: ' + self.args.data_dir)
-            logging.info('Loss: ' + self.args.useloss)
-            logging.info('Accuracy: {}'.format(result['acc']))
-            logging.info('Micro precision: {}'.format(result['micro_p']))
-            logging.info('Micro recall: {}'.format(result['micro_r']))
-            logging.info('Micro F1: {}'.format(result['micro_f1']))
-            logging.info('Macro precision: {}'.format(result['macro_p']))
-            logging.info('Macro recall: {}'.format(result['macro_r']))
-            logging.info('Macro F1: {}'.format(result['macro_f1']))
-            logging.info("Predicted Labels: {}".format(result['pred_labels']))
-            logging.info('F1 per Relation: {}'.format(result['f1_per_relation']))
-            if self.args.data_dir.split('/')[1] in ['semeval','tacrev', 'wiki80','SciERC']:
-                logging.info('Micro F1 of Few-level Relations: {}'.format(result['few_mif1']))
-                logging.info('Macro F1 of Few-level Relations: {}'.format(result['few_maf1']))
-                logging.info('Micro F1 of Medium-level Relations: {}'.format(result['med_mif1']))
-                logging.info('Macro F1 of Medium-level Relations: {}'.format(result['med_maf1']))
-                logging.info('Micro F1 of Many-level Relations: {}'.format(result['many_mif1']))
-                logging.info('Macro F1 of Many-level Relations: {}'.format(result['many_maf1']))
-            logging.info('Classification Report: {}'.format(result['report']))
+#         if self.args.labeling=="False":
+        logits = np.concatenate([o["test_logits"] for o in outputs])
+        labels = np.concatenate([o["test_labels"] for o in outputs])
+        result = self.eval_fn(logits, labels)
+        logging.info('Test set results:')
+        logging.info('Dataset: ' + self.args.data_dir)
+        logging.info('Loss: ' + self.args.useloss)
+        logging.info('Accuracy: {}'.format(result['acc']))
+        logging.info('Micro precision: {}'.format(result['micro_p']))
+        logging.info('Micro recall: {}'.format(result['micro_r']))
+        logging.info('Micro F1: {}'.format(result['micro_f1']))
+        logging.info('Macro precision: {}'.format(result['macro_p']))
+        logging.info('Macro recall: {}'.format(result['macro_r']))
+        logging.info('Macro F1: {}'.format(result['macro_f1']))
+        logging.info("Predicted Labels: {}".format(result['pred_labels']))
+        logging.info('F1 per Relation: {}'.format(result['f1_per_relation']))
+        if self.args.data_dir.split('/')[1] in ['semeval','tacrev', 'wiki80','SciERC']:
+            logging.info('Micro F1 of Few-level Relations: {}'.format(result['few_mif1']))
+            logging.info('Macro F1 of Few-level Relations: {}'.format(result['few_maf1']))
+            logging.info('Micro F1 of Medium-level Relations: {}'.format(result['med_mif1']))
+            logging.info('Macro F1 of Medium-level Relations: {}'.format(result['med_maf1']))
+            logging.info('Micro F1 of Many-level Relations: {}'.format(result['many_mif1']))
+            logging.info('Macro F1 of Many-level Relations: {}'.format(result['many_maf1']))
+        logging.info('Classification Report: {}'.format(result['report']))
             # f1 = result['micro_f1']
             # self.log("Test/f1", f1)
         
