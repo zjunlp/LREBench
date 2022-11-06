@@ -384,53 +384,12 @@ def convert_examples_to_features_normal(examples, max_seq_length, tokenizer):
             add_special_tokens=True
         )
 
-        # tokens = []
-        # segment_ids = []
-        # tokens.append("[CLS]")
-        # segment_ids.append(0)
-        # for token in tokens_a:
-        #     tokens.append(token)
-        #     segment_ids.append(0)
-        # tokens.append("[SEP]")
-        # segment_ids.append(0)
-
-        # for token in tokens_b:
-        #     tokens.append(token)
-        #     segment_ids.append(1)
-        # tokens.append("[SEP]")
-        # segment_ids.append(1)
-
-        # input_ids = tokenizer.convert_tokens_to_ids(tokens)
-
-        # # The mask has 1 for real tokens and 0 for padding tokens. Only real
-        # # tokens are attended to.
-        # input_mask = [1] * len(input_ids)
-
-        # # Zero-pad up to the sequence length.
-        # while len(input_ids) < max_seq_length:
-        #     input_ids.append(0)
-        #     input_mask.append(0)
-        #     segment_ids.append(0)
-
-        # assert(inputs['input_ids'] == input_ids), print(inputs['input_ids'])
-
-        # assert len(input_ids) == max_seq_length
-        # assert len(input_mask) == max_seq_length
-        # assert len(segment_ids) == max_seq_length
-
         label_id = example.label 
 
         if ex_index == 0:
             logger.info(f"input_text : {tokens_a} {tokens_b} {tokens_c}")
             logger.info(f"input_ids : {inputs['input_ids']}")
-            # logger.info(f"token_type_ids : {inputs['token_type_ids']}")
-        
-        # inputs = {}
-        # inputs['input_ids'] = input_ids
-        # inputs['attention_mask'] = input_mask
-        # inputs['token_type_ids'] = segment_ids
 
-        # append 1 sample with 2 input
         features.append(
             InputFeatures(
                 input_ids=inputs['input_ids'],
@@ -462,12 +421,6 @@ def convert_examples_to_features(examples, max_seq_length, tokenizer, args, rel2
     
     assert not (use_bert and use_gpt), "model cannot be gpt and bert together"
 
-    # if False:
-    #     with open(file=save_file, mode='rb') as fr:
-    #         instances = pickle.load(fr)
-    #     print('load preprocessed data from {}.'.format(save_file))
-
-    # else:
     print('loading..')
     for (ex_index, example) in enumerate(examples):
         
@@ -481,10 +434,16 @@ def convert_examples_to_features(examples, max_seq_length, tokenizer, args, rel2
             logger.info("Writing example %d of %d" % (ex_index, len(examples)))
 
         tokens = []
-        SUBJECT_START = "[subject_start]"
-        SUBJECT_END = "[subject_end]"
-        OBJECT_START = "[object_start]"
-        OBJECT_END = "[object_end]"
+        if example.if_token:
+            SUBJECT_START = "[subject_start]"
+            SUBJECT_END = "[subject_end]"
+            OBJECT_START = "[object_start]"
+            OBJECT_END = "[object_end]"
+        else:
+            SUBJECT_START = "[subject_start] "
+            SUBJECT_END = " [subject_end]"
+            OBJECT_START = "[object_start] "
+            OBJECT_END = " [object_end]"
 
         if mode.startswith("text"):
             for i, token in enumerate(example.sentence):
