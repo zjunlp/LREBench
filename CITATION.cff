@@ -31,5 +31,5 @@ preferred-citation:
     given-names: Xi
   - family-names: Chen
     given-names: Huajun
-  conference: "Conference on Empirical Methods in Natural Language Processing (EMNLP)"
+  proceeding: "Conference on Empirical Methods in Natural Language Processing (EMNLP)"
   year: 2022
