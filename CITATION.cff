@@ -1,0 +1,35 @@
+cff-version: "1.0.0"
+message: "If you use the code, please cite the following paper:"
+title: "LREBench"
+repository-code: "https://https://github.com/zjunlp/LREBench"
+authors: 
+  - family-names: Xu
+    given-names: Xin
+  - family-names: Chen
+    given-names: Xiang
+  - family-names: Zhang
+    given-names: Ningyu
+  - family-names: Xie
+    given-names: Xin
+  - family-names: Chen
+    given-names: Xi
+  - family-names: Chen
+    given-names: Huajun
+preferred-citation:
+  type: article
+  title: "Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study"
+  authors:
+  - family-names: Xu
+    given-names: Xin
+  - family-names: Chen
+    given-names: Xiang
+  - family-names: Zhang
+    given-names: Ningyu
+  - family-names: Xie
+    given-names: Xin
+  - family-names: Chen
+    given-names: Xi
+  - family-names: Chen
+    given-names: Huajun
+  conference: "Conference on Empirical Methods in Natural Language Processing (EMNLP)"
+  year: 2022
