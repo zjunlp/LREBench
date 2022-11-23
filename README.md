@@ -288,3 +288,30 @@ We provide many data augmentation methods
 </div> 
 
 [Fine-tuning](Fine-tuning/)
+
+# Citation
+If you use the code, please cite the following paper:
+
+
+```bibtex
+@article{DBLP:journals/corr/abs-2210-10678,
+  author    = {Xin Xu and
+               Xiang Chen and
+               Ningyu Zhang and
+               Xin Xie and
+               Xi Chen and
+               Huajun Chen},
+  title     = {Towards Realistic Low-resource Relation Extraction: {A} Benchmark
+               with Empirical Baseline Study},
+  journal   = {CoRR},
+  volume    = {abs/2210.10678},
+  year      = {2022},
+  url       = {https://doi.org/10.48550/arXiv.2210.10678},
+  doi       = {10.48550/arXiv.2210.10678},
+  eprinttype = {arXiv},
+  eprint    = {2210.10678},
+  timestamp = {Tue, 25 Oct 2022 14:25:08 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2210-10678.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
