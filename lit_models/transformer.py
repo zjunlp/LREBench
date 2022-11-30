@@ -161,16 +161,22 @@ class BertLitModel(BaseLitModel):
         if self.args.stutrain=="False":
             if len(batch)==5:
                 input_ids, attention_mask, token_type_ids, labels, so = batch
+                result = self.model(input_ids, attention_mask, token_type_ids, return_dict=True, output_hidden_states=True)
+                logits = result.logits
             else:
                 input_ids, attention_mask, labels, so = batch
+                result = self.model(input_ids, attention_mask,return_dict=True, output_hidden_states=True)
+                logits = result.logits
         else:
             if len(batch)==6:
                 input_ids, attention_mask, token_type_ids, labels, so, guids = batch
+                result = self.model(input_ids, attention_mask, token_type_ids, return_dict=True, output_hidden_states=True)
+                logits = result.logits
             else:
                 input_ids, attention_mask, labels, so, guids = batch
+                result = self.model(input_ids, attention_mask, return_dict=True, output_hidden_states=True)
+                logits = result.logits
         if self.args.stutrain=="False":
-            result = self.model(input_ids, attention_mask, return_dict=True, output_hidden_states=True)
-            logits = result.logits
             output_embedding = result.hidden_states[-1]
             logits = self.pvp(logits, input_ids)
             # logits = self.model.roberta(input_ids, attention_mask).last_hidden_state
@@ -191,8 +197,6 @@ class BertLitModel(BaseLitModel):
             self.log("Train/loss", loss)
             self.log("Train/ke_loss", loss)
         else:
-            result = self.model(input_ids, attention_mask, return_dict=True, output_hidden_states=True)
-            logits = result.logits
             output_embedding = result.hidden_states[-1]
             logits = self.pvp(logits, input_ids)
             # logits = self.model.roberta(input_ids, attention_mask).last_hidden_state
