@@ -17,7 +17,10 @@ for fname in tqdm(args.input_files,desc="Merge"):
     with open(fname, 'r') as f:
         for line in f.readlines():
             line = json.loads(line)
-            sentence = ' '.join(line['token'])
+            if 'token' in line:
+                sentence = ' '.join(line['token'])
+            else:
+                sentence = line['text']
             triple = (sentence, line['h']['name'],line['t']['name'])
             if triple in triples:
                 reduced_samples += 1
