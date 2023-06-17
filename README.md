@@ -1,6 +1,6 @@
 # LREBench: A low-resource relation extraction benchmark.
 
-This repo is official implementation for the EMNLP2022 (Findings) paper *[LREBench: Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)*[[ppt]()][[poster](https://drive.google.com/file/d/1APDfO3gn27LWckDWTMdXr24WeOl0rfF9/view)]. 
+This repo is official implementation for the EMNLP2022 (Findings) paper *[LREBench: Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study](https://arxiv.org/pdf/2210.10678.pdf)* [[poster](https://drive.google.com/file/d/1APDfO3gn27LWckDWTMdXr24WeOl0rfF9/view)]. 
 
 This paper presents an empirical study to build relation extraction systems in low-resource settings. Based upon recent PLMs, three schemes are comprehensively investigated to evaluate the performance in low-resource settings: $(i)$ different types of prompt-based methods with few-shot labeled data;  $(ii)$ diverse balancing methods to address the long-tailed distribution issue; $(iii)$ data augmentation technologies and self-training to generate more labeled in-domain data.
 
