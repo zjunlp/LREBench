@@ -204,7 +204,7 @@ We provide many data augmentation methods
 - Generate augmented data
   ```shell
   >> python DA.py -h
-      usage: DA2.py [-h] --input_file INPUT_FILE --output_dir OUTPUT_DIR --language {en,cn}
+      usage: DA.py [-h] --input_file INPUT_FILE --output_dir OUTPUT_DIR --language {en,cn}
                     [--locations {sent1,sent2,sent3,ent1,ent2} [{sent1,sent2,sent3,ent1,ent2} ...]]
                     [--DAmethod {word2vec,TF-IDF,word_embedding_bert,word_embedding_roberta,random_swap,synonym}]
                     [--model_dir MODEL_DIR] [--model_name MODEL_NAME] [--create_num CREATE_NUM] [--change_rate CHANGE_RATE]
